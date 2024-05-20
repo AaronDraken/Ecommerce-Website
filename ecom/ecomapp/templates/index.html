@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block title %} Ecom | Home {% endblock %}
+{% block body %}
+
+<div class="m-4">
+    <div class="row">
+        <div class="col-md-3">
+                <div class="sticky-top">
+                <h4>Filter by Category</h4>
+                <hr />
+                <a href="/">All</a><br>
+                <a href="/lap">Laptop</a><br>
+                <a href="/mob">Mobile</a><br>
+                <a href="/tv">TV</a>
+                <br>
+                <br>
+                <h4>Filter by Price</h4>
+                <hr />
+                <form method="post" action="{% url 'filter' %}">
+                    {% csrf_token %}
+                    <!-- Min input -->
+                    <div data-mdb-input-init class="form-outline mb-4">
+                        <input type="number" id="min" name="min" class="form-control" />
+                        <label class="form-label" for="min">Min</label>
+                    </div>
+    
+                    <!-- Max input -->
+                    <div data-mdb-input-init class="form-outline mb-4">
+                        <input type="number" id="max" name="max" class="form-control" />
+                        <label class="form-label" for="max">Max</label>
+                    </div>
+    
+                    <!-- filter button -->
+                    <button data-mdb-ripple-init type="submit" class="btn btn-primary btn-block">Filter</button>
+                </form>
+                <h4>{{msg}}</h4>
+                
+                <br>
+                <br>
+                <h4>Sort by</h4>
+                <hr />
+                <a href="{% url 'sort' %}?sort=desc">High to Low</a><br>
+                <a href="{% url 'sort' %}?sort=asc">Low to High</a>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="row">
+                <div class="card-group">
+                    {% for x in products %}
+                    <div class="col-md-3">
+                        <div class="card m-1">
+                            <div class="bg-image hover-overlay" data-mdb-ripple-init data-mdb-ripple-color="light">
+                                <a href="{% url 'details' x.pk %}">
+                                <img src="{{x.image.url}}" class="img-fluid" style='height:220px;' />
+                                    <div class="mask" style="background-color: rgba(251, 251, 251, 0.15)"></div>
+                                </a>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">{{x.pname}}</h5>
+                                <h6 class="card-title">$ {{x.price}}</h6>
+                                <p class="card-text">
+                                    {{x.desc|slice:"0:24"}}
+                                    <a href="{% url 'details' x.pk %}">more...</a>
+                                </p>
+                                <div style="display: inline;">
+                                    <a href="{% url 'addToCart' x.pk %}" class="btn btn-primary btn-sm" data-mdb-ripple-init>Add to Cart</a>
+                                    <a href="{% url 'buy' x.pk %}" class="btn btn-danger btn-sm" data-mdb-ripple-init>Buy Now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

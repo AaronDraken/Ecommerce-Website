@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block title %}{{object.pname}}{% endblock %}
+{% block body %}
+<div class="row m-2">
+    <div class="col-md-9 p-3">
+        <h3 class='bg-danger'>Product Details</h3>
+        <div class="row">
+            {% for x in cart %}
+            <div style='display: inline-block'>
+                <div class="row">
+                    <div class="col-md-4">
+                    <img src="{{x.pid.image.url}}" class="img-fluid" style='height: 100px;' />
+                    </div>
+                    <div class="col">
+                        <h5 class="card-title">{{x.pid.pname}}</h5>
+                        <h6 class="card-title">$ {{x.pid.price}}</h6>
+                        <p class="card-text">{{x.pid.desc}}</p><br>
+                    </div> 
+                    <div class="col" align="center">    
+                                <a href="{% url 'updateQty' 0 x.pid.pid  %}" class="btn btn-primary text-white btn-sm" data-mdb-ripple-init><i class="fas fa-plus"></i></a>
+                                <input type="text" value="{{x.quantity}}" size="5" style="text-align: center;">
+                                <a href="{% url 'updateQty' 1 x.pid.pid %}" class="btn btn-primary text-white btn-sm" data-mdb-ripple-init><i class="fas fa-minus"></i></a>
+                                &nbsp;&nbsp;
+                                <a href="{% url 'delete' x.pid.pid %}" class="btn btn-danger text-white btn-sm" data-mdb-ripple-init><i class="far fa-trash-can"></i></a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="col-md-3 p-3">
+        <h3 class='bg-danger' align="center">Bill Details</h3>
+        <br>
+        <div class="row" align="center">
+            <div class="col">
+                <h4>Price</h4>
+            </div>
+            <div class="col">
+                <h4>Quantity</h4>
+            </div>
+            <hr>
+        </div>
+        {% for x in cart %}
+        <div class="row">
+            <div class="col" align="center">
+                $ {{x.pid.price}}
+            </div>
+            <div class="col" align="center">
+                X {{x.quantity}}
+            </div>
+        </div>
+        {% endfor %}
+        <hr>
+        <div class="row">
+            <div class="col" align="center"><b>Total: </b></div>
+            <div class="col" align="center"> $ {{sum}}</div>
+        </div>
+        <br>
+        {% if cart %}
+        <div align="center"><a href="/placeOrder" class="btn btn-success text-white btn-sm" data-mdb-ripple-init>Place Order</a></div>
+        {% endif %}
+    </div>
+</div>
+<br>
+<br>
+<hr>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Address{% endblock %}
+{% block body %}
+<div class="row m-3">
+    <form method="post">
+        {% csrf_token %}
+        <div class="row m-2">
+          {% if address %}
+            <div class="col">
+              <input type="text" class="form-control" name="address" placeholder="Address" value="{{address.address}}" aria-label="Address">
+            </div>
+            <div class="col">
+              <input type="text" class="form-control" name="zipcode" placeholder="Zipcode" value="{{address.zip}}" aria-label="Zipcode">
+            </div>
+            <div class="col">
+              <input type="text" class="form-control" name="phone" placeholder="Phone" value="{{address.phone}}" aria-label="Phone">
+            </div>
+          {% else %}
+          <div class="col">
+            <input type="text" class="form-control" name="address" placeholder="Address" aria-label="Address">
+          </div>
+          <div class="col">
+            <input type="text" class="form-control" name="zipcode" placeholder="Zipcode" aria-label="Zipcode">
+          </div>
+          <div class="col">
+            <input type="text" class="form-control" name="phone" placeholder="Phone" aria-label="Phone">
+          </div>
+          {% endif %}
+        </div>
+        <div class="row m-2">
+            <button type="submit">Submit</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

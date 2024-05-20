@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}{{object.pname}}{% endblock %}
+{% block body %}
+<ul>
+    {% for x in prods %}
+    <li>
+        {{x.oid}}
+        {{x.pid.pname}}
+        {{x.quantity}}
+        {{x.date_added}}
+        {{x.user.username}}
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Address{% endblock %}
+{% block body %}
+<div class='row m-2'>
+    <div class="col-md-4 col-sm-4 col-lg-4 m-2" style="border: 1px dotted gray;">
+        <h1 style="padding: 2em;"><a href="/addAddress"><i class="bi bi-plus-circle"></i></a></h1>
+    </div>
+    <div class="col-md-4 col-sm-4 col-lg-4 m-2 overflow-auto" style="border: 1px dotted gray; height: 50vh;">
+        {% for x in address %}
+        <div class="row">
+            <a class="btn" href="/payment">
+                Address: {{x.address}} <br>
+                Zipcode: {{x.zip}} <br>
+                Phone: {{x.phone}} <br>
+            </a>
+        </div>
+        <div align="center">
+            <a href='#'>Add Delivery Instructions</a><br>
+            <a href="{% url 'updateAddress' x.id %}">Edit</a> | <a href="{% url 'deleteAddress' x.id %}">Delete</a><br>
+            <hr>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

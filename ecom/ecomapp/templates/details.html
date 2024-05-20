@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}{{object.pname}}{% endblock %}
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <img src="{{object.image.url}}" class="img-fluid" /><br>
+        </div>
+        <div class="col-md-4">
+            <h5 class="card-title">{{object.pname}}</h5><br>
+            <h6 class="card-title">$ {{object.price}}</h6><br>
+            <p class="card-text">{{object.desc}}</p><br>
+            <div style="display: inline;">
+                <a href="{% url 'addToCart' object.pk %}" class="btn btn-primary btn-lg" data-mdb-ripple-init>Add to Cart</a>
+                <a href="{% url 'buy' object.pk %}" class="btn btn-danger btn-lg" data-mdb-ripple-init>Buy Now</a>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<hr>
+{% endblock %}
